@@ -2,7 +2,7 @@ import { decryptAndReconstructToken } from "../utils"
 
 let ws
 
-export const connectWebSocket = () => {
+export const connectWebSocket = (addNotification) => {
   
     if (ws && ws.readyState === WebSocket.OPEN) {
         console.log('WebSocket already connected...')
@@ -17,6 +17,9 @@ export const connectWebSocket = () => {
     ws.onmessage = (event) => {
         const message = JSON.parse(event.data)
         console.log('Message from server:', message)
+        if (message.eventName === "newFriendRequest") {
+            addNotification(message.requestId,message.message,"friend-request",false)
+        }
     }
 
     ws.onclose = () => {

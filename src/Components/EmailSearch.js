@@ -78,11 +78,11 @@ const EmailSearch = () => {
             {   
                 isLoading ? <p className='email-search-loading'>Loaading...</p> :
                 emailSuggestions.length > 0 ? 
-                    <ul className="suggestions-list">
+                    <ul className="site-list">
                         {
                             emailSuggestions.map((suggestion, index) => {
                                 if(suggestion.email === authState.user.email) return null
-                                else return <li key={`li-${index+1}`} className="suggestion-item">
+                                else return <li key={`li-${index+1}`} className="site-list-item">
                                     { getHighlightedText(suggestion, email,index+1) }
                                 </li>
                             })

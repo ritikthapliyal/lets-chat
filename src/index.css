@@ -141,14 +141,14 @@ code {
   border-bottom: 0.5px solid black
 }
 
-.suggestions-list{
-  width: 70%;
+.site-list{
+  width: 12rem;
   margin: 0;
   list-style: none;
   padding-left: .6rem;
   padding-top: .4rem;
 }
-.suggestion-item{
+.site-list-item{
   padding: 0.2px;
 }
 
@@ -207,7 +207,30 @@ code {
 }
 
 
+.notification{
+  position: relative;
+}
+.notification .site-list{
+  position: absolute;
+  width: 14rem;
+  transform: translate(-50%,0%);
+  height: 22rem;
+  background-color: white;
+  border: 1px solid #919191;
+  padding: 0.4rem;
+}
 
+.notification .site-list .site-list-item{ 
+  font-size: 13px;
+  line-height: 14px;
+  padding: .1rem .2rem;
+  padding-bottom: .4rem;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: .2rem;
+}
+.friend-request-item{
+  background-color: #eeeeee;
+}
 .notification-button{
   width: 2rem;
   height: 2.2rem;
@@ -220,11 +243,50 @@ code {
 .notification-button svg{
   height: 70%;
   width: 70%;
-  stroke: black;
+  stroke: #181818;
   stroke-width: 0px;
+  transition: all 0.2s;
 }
+.notification-button svg:hover{
+  transform: scale(1.1);
+  stroke: black;
+}     
 
-
+.friend-request-item div{
+  display: flex;
+  gap: .4rem;
+  justify-content: flex-end;
+}
+.friend-request-item div button{
+  background-color: white;
+  border: 1px solid rgb(134, 134, 134);
+  color: black;
+  justify-self: end;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 3rem;
+  height: 1.15rem;
+  text-align: center;
+  font-size: .75rem;
+}
+.friend-request-item div button:hover{
+  transform: scale(1.05);
+}
+.unread-count{
+  position: absolute;
+  font-size: 0.6rem;
+  background-color: #ff3434;
+  color: white;
+  width: .9rem;
+  height: .9rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 50%;
+  right: 0;
+  z-index: 1;
+  top: 5%;
+}
 
 
 

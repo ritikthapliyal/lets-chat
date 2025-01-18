@@ -1,11 +1,14 @@
 import React, { createContext, useState, useContext } from 'react';
 import { clearToken } from '../utils';
 import { connectWebSocket } from '../Apis/Socket';
+import { useNotification } from './NotificationContext';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    
+
+    const { addNotification } = useNotification()
+
     const [authState, setAuthState] = useState({
         isAuthenticated: false,
         user: null,
@@ -13,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     })
 
     const login = (user) => {
-        connectWebSocket()
+        connectWebSocket(addNotification)
         setAuthState({ isAuthenticated: true, user, isAuthChecked : true })
     }
 
