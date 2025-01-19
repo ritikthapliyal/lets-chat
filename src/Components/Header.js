@@ -1,12 +1,17 @@
 import React from 'react'
 import { useAuth } from '../Contexts/AuthContext'
 import Notification from './Notification'
+import { useNotification } from '../Contexts/NotificationContext'
 
 function Header() {
 
     const {authState,logout} = useAuth()
+    const { setInitialNotification } = useNotification()
     
-    const handleLogout = () => { logout() } 
+    const handleLogout = () => { 
+        logout() 
+        setInitialNotification([])
+    } 
 
     return (
         <div className='header horizontal-center'>

@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from './Contexts/AuthContext'
 import Home from './Components/Home'
 import { getUserDetails } from './Apis/UserApis'
 import { decryptAndReconstructToken } from './utils'
+import { useNotification } from './Contexts/NotificationContext'
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
 function MainApp() {
     
     const { authState, login , setIsAuthChecked } = useAuth()
+    const { setInitialNotification } = useNotification()
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -26,8 +28,11 @@ function MainApp() {
                 const token = decryptAndReconstructToken();
 
                 if (token && !authState?.isAuthenticated) {
-                    const { userData, success } = await getUserDetails(token)
-                    if (success) login(userData)
+                    const { userData, success, notifications } = await getUserDetails(token)
+                    if (success){
+                        login(userData)
+                        setInitialNotification(notifications)
+                    } 
                     else throw new Error("Wasn't able to login")
                 }
                 else throw new Error("Token not found")

@@ -6,6 +6,7 @@ import Slide from '@mui/material/Slide'
 import { useNavigate } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
 import { useAuth } from '../Contexts/AuthContext'
+import { useNotification } from '../Contexts/NotificationContext'
 
 function Landing() {
 
@@ -20,6 +21,7 @@ function Landing() {
 
     const navigate = useNavigate()
     const { login } = useAuth()
+    const { setInitialNotification } = useNotification()
 
     const handleSnackbarClose = () => {
         setSnackbar({ open: false, message: '', severity: '' })
@@ -32,7 +34,7 @@ function Landing() {
     const handleSubmit = async () => {
         
         setIsLoading(true)
-        const {message,success} = isSignInClicked ? await signIn(email, password, login) : await signUp(email,login)
+        const {message,success} = isSignInClicked ? await signIn(email, password, login, setInitialNotification) : await signUp(email,login,setInitialNotification)
         setIsLoading(false)
 
         if(!success){

@@ -27,7 +27,7 @@ function Notification() {
                 </svg>
             </button>
             {
-                showNotificationList && notifications.length > 0 && (
+                showNotificationList && notifications.length > 0 && 
                     <ul className="site-list" onMouseLeave={()=> setTimeout(() => {setShowNotificationList(false)}, 150)}>
                         {
                             notifications.map((notification, index) => {
@@ -49,8 +49,14 @@ function Notification() {
                                 
                             })
                         }
-                    </ul>
-                )
+                    </ul>    
+            }
+            {
+                showNotificationList && notifications.length === 0 && <ul className="site-list" onMouseLeave={()=> setTimeout(() => {setShowNotificationList(false)}, 150)}>
+                    <li className="site-list-item" style={{textAlign : "center"}}>
+                        <span>No Notifications yet</span>
+                    </li>
+                </ul>
             }
         </div>
     )

@@ -4,7 +4,7 @@ import { AUTH_URL } from './ApiConfic'
 import { splitAndEncryptToken } from '../utils'
 
 
-export async function signIn(email, password, updateAuthContext) {
+export async function signIn(email, password, updateAuthContext, updateNotificationContext) {
     try {
         
         const response = await axios.post(`${AUTH_URL}/sign-in`, {email,password})
@@ -13,6 +13,7 @@ export async function signIn(email, password, updateAuthContext) {
             const { token, userData } = response.data.data
             splitAndEncryptToken(token,userData.email)
             updateAuthContext(userData)
+            updateNotificationContext(userData?.notifications || [])
             return {message : "Success", success : true}
         } 
         else return {message : "Something went wrong", success : false}

@@ -13,7 +13,8 @@ export async function getUserDetails(token) {
         
         if (response?.data?.success) {
             const userData = response.data.data
-            return {message : "Success", userData, success : true} 
+            const notifications = response.data.notifications || []
+            return {message : "Success", userData, notifications, success : true} 
         } 
         else return {message : "Something went wrong", success : false}
 

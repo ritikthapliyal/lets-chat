@@ -18,7 +18,7 @@ export const connectWebSocket = (addNotification) => {
         const message = JSON.parse(event.data)
         console.log('Message from server:', message)
         if (message.eventName === "newFriendRequest") {
-            addNotification(message.requestId,message.message,"friend-request",false)
+            addNotification(message.notification)
         }
     }
 

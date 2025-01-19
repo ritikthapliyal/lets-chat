@@ -4,25 +4,18 @@ const NotificationContext = createContext()
 
 export const NotificationProvider = ({ children }) => {
     
-    const [notifications, setNotifications] = useState([
-        // {id : 13423, message :"You have a new friend request by 123@gmail.com", type : "friend-request", hasRead : false },
-        // {id : 13423, message :"this is a rndom message to test how it would look in the list that i am trying to make, shaka laka do do !!", type : "info", hasRead : false },
-    ])
+    const [notifications, setNotifications] = useState([])
 
-    const addNotification = (id, message, type, hasRead) => {
-        setNotifications((prev) => [...prev, { id, message, type, hasRead }])
+    const addNotification = (notification) => {
+        if(notification)setNotifications((prev) => [ notification, ...prev])
     }
 
-    const removeNotification = (id) => {
-        setNotifications((prev) => prev.filter((notification) => notification.id !== id))
-    }
+    const setInitialNotification = (notifications) => setNotifications(notifications)
 
-    const clearNotifications = () => {
-        setNotifications([])
-    }
+    const clearNotifications = () => setNotifications([])
 
     return (
-        <NotificationContext.Provider value={{notifications, addNotification, removeNotification, clearNotifications}}>
+        <NotificationContext.Provider value={{notifications, addNotification, setInitialNotification, clearNotifications}}>
             {children}
         </NotificationContext.Provider>
     )
