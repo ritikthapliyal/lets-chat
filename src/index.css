@@ -105,7 +105,7 @@ code {
   position: relative;
   font-weight: 500;
 }
-.header-inner-div p::after {
+.header-inner-div p::before {
   content: '';
   display: inline-block;
   width: 0.5rem;
@@ -113,7 +113,7 @@ code {
   background-color: limegreen;
   border-radius: 50%;
   position: absolute;
-  right: 6.6rem;
+  left: -8px;
   top: 22%;
   transform: translateY(-50%);
 }
@@ -251,7 +251,6 @@ code {
   transform: scale(1.1);
   stroke: black;
 }     
-
 .friend-request-item div{
   display: flex;
   gap: .4rem;
@@ -292,7 +291,7 @@ code {
 
 
 /* ///////////////////////////////////////// */
-.three-dots {
+.two-dots,.three-dots {
   display: flex;
   align-items: end;
   gap: 2px;
@@ -302,7 +301,10 @@ code {
   align-self: baseline;
   justify-content: center;
 }
-
+.three-dots{
+  width: 2rem;
+  gap: 3px !important;
+}
 .dot {
   width: 4px;
   height: 4px;

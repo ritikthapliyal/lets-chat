@@ -7,7 +7,7 @@ export const NotificationProvider = ({ children }) => {
     const [notifications, setNotifications] = useState([])
 
     const addNotification = (notification) => {
-        if(notification)setNotifications((prev) => [ notification, ...prev])
+        if(notification)setNotifications((prev) => [notification, ...prev])
     }
 
     const setInitialNotification = (notifications) => setNotifications(notifications)

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useNotification } from '../Contexts/NotificationContext'
+import { acceptOrRejectFriendRequest } from '../Apis/RequestApis'
 
 function Notification() {
 
     const [showNotificationList,setShowNotificationList] = useState(false)
+    const [isLoading,setIsLoading] = useState(false)
     const [unreadCount,setUnreadCount] = useState(0)
     const { notifications, removeNotification, markAsRead } = useNotification()
 
-    const handleFriendRequest = (result) => {
-        
+    const handleFriendRequest = async (action,notificationId,requestId) => {
+        setIsLoading(true)
+        await acceptOrRejectFriendRequest(action,notificationId,requestId)
+        setIsLoading(false)
     }
 
     useEffect(()=>{
@@ -35,10 +39,18 @@ function Notification() {
                                 if(notification.type === 'friend-request'){
                                     return <li key={`li-${index+1}`} className="site-list-item friend-request-item">
                                         <span>{notification.message}</span>
-                                        <div>
-                                            <button onClick={()=>{handleFriendRequest("Accept")}}>Accept</button>
-                                            <button onClick={()=>{handleFriendRequest("Reject")}}>Reject</button>
-                                        </div>
+                                        {
+                                            isLoading ? <div className="three-dots">
+                                                <span className="dot"></span>
+                                                <span className="dot"></span>
+                                                <span className="dot"></span>
+                                            </div>  
+                                            : 
+                                            <div>
+                                                <button onClick={()=>{handleFriendRequest("accepted",notification._id,notification.requestId)}}>Accept</button>
+                                                <button onClick={()=>{handleFriendRequest("rejected")}}>Reject</button>
+                                            </div>
+                                        }
                                     </li>
                                 }
                                 else{
