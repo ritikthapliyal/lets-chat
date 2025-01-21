@@ -1,17 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { useNotification } from '../Contexts/NotificationContext'
 import { acceptOrRejectFriendRequest } from '../Apis/RequestApis'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.extend(customParseFormat)
+
+const convertToIST12Hour = (timestamp) => {
+    return dayjs.utc(timestamp).tz('Asia/Kolkata').format('DD MMM YYYY, hh:mm A')
+}
 
 function Notification() {
 
     const [showNotificationList,setShowNotificationList] = useState(false)
     const [isLoading,setIsLoading] = useState(false)
     const [unreadCount,setUnreadCount] = useState(0)
-    const { notifications, removeNotification, markAsRead } = useNotification()
+    const { notifications, updateNotification, removeNotification } = useNotification()
 
     const handleFriendRequest = async (action,notificationId,requestId) => {
         setIsLoading(true)
-        await acceptOrRejectFriendRequest(action,notificationId,requestId)
+        const {data , success} = await acceptOrRejectFriendRequest(action,notificationId,requestId)
+        if(success){
+            if(action === "accepted") updateNotification({...data,type : "info"})
+            if(action === "rejected") removeNotification(notificationId)
+        } 
         setIsLoading(false)
     }
 
@@ -54,8 +70,9 @@ function Notification() {
                                     </li>
                                 }
                                 else{
-                                    return <li key={`li-${index+1}`} className="site-list-item">
+                                    return <li key={`li-${index+1}`} className="site-list-item custom-flex-1">
                                         {notification.message}
+                                        <span className='notification-timestamp'>{convertToIST12Hour(notification.createdAt)}</span>
                                     </li>
                                 }
                                 

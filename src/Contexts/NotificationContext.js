@@ -12,10 +12,27 @@ export const NotificationProvider = ({ children }) => {
 
     const setInitialNotification = (notifications) => setNotifications(notifications)
 
+    const updateNotification = (data) => {
+        const { notificationId, updatedNotificationMessage } = data
+        setNotifications((prev) =>
+            prev.map((notification) =>
+                notification._id === notificationId
+                    ? { ...notification, message: updatedNotificationMessage, type : data.type}
+                    : notification
+            )
+        )
+    }
+
+    const removeNotification = (id) => {
+        setNotifications((prev) =>
+            prev.filter((notification) => notification._id !== id)
+        )
+    }
+
     const clearNotifications = () => setNotifications([])
 
     return (
-        <NotificationContext.Provider value={{notifications, addNotification, setInitialNotification, clearNotifications}}>
+        <NotificationContext.Provider value={{notifications, removeNotification, addNotification, setInitialNotification, clearNotifications, updateNotification}}>
             {children}
         </NotificationContext.Provider>
     )

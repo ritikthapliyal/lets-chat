@@ -15,7 +15,7 @@ export async function acceptOrRejectFriendRequest(action,notificationId,requestI
         )
         
         if (response?.data?.success) {
-            console.log(response?.data)
+            return {data : response?.data?.data,success : true}
         } 
         else return {message : "Something went wrong", success : false}
 
