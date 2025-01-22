@@ -8,7 +8,7 @@ import Snackbar from '@mui/material/Snackbar'
 import Alert from '@mui/material/Alert'
 import Slide from '@mui/material/Slide'
 
-const EmailSearch = () => {
+const EmailSearch = ({menuButtons,setMenuButtons}) => {
 
     
     const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: '' })
@@ -73,10 +73,12 @@ const EmailSearch = () => {
     return (
         <div className='email-search'>
 
+            <button className='close-btn' onClick={()=>{setMenuButtons({...menuButtons,searchFriends : true})}}>x</button>
+
             <input type="text" value={email} onChange={handleInputChange} placeholder="Search friends" className=" default-input"/>
 
             {   
-                isLoading ? <p className='email-search-loading'>Loaading...</p> :
+                isLoading ? <p className='email-search-loading'>Loading...</p> :
                 emailSuggestions.length > 0 ? 
                     <ul className="site-list">
                         {
