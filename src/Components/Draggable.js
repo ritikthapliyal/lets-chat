@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 
 const Draggable = ({ children, className, initialCoordinates}) => {
   
     const [position, setPosition] = useState(initialCoordinates)
     const [isDragging, setIsDragging] = useState(false)
     const [offset, setOffset] = useState({ x: 0, y: 0 })
-
-    const draggableRef = useRef(null)
 
     const handleMouseDown = (e) => {
         setIsDragging(true)
@@ -18,8 +16,7 @@ const Draggable = ({ children, className, initialCoordinates}) => {
         setPosition({x: e.clientX - offset.x,y: e.clientY - offset.y})
     }
 
-    return <div 
-        ref={draggableRef}
+    return <div
         style={{top: position.y, left: position.x, cursor: isDragging ? 'grabbing' : 'grab' }} 
         className={`draggable ${className}`} 
         onMouseDown={handleMouseDown} 

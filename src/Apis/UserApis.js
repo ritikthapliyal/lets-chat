@@ -32,7 +32,6 @@ export async function getEmailSuggestions(searchTerm) {
         if(!authToken) return {message : "Token not found", success : false, code : 401}
 
         const response = await axios.get(`${SEARCH_URL}`, {headers: { 'Authorization': authToken},params: { query: searchTerm }})
-        console.log(response.data)
         if (response?.data?.success) {
             const emailList = response.data.data
             return {message : "Success", emailList, success : true, code : 200} 
